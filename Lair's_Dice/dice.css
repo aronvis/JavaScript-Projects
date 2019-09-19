@@ -1,0 +1,63 @@
+#outercontainer
+{
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+h1
+{
+	font-size: 40px;
+}
+
+section
+{
+	height: 90px;
+	font-size: 20px;
+}
+
+input
+{
+	height: 26px;
+	padding-top: 2px;
+	width: 200px;
+}
+
+button
+{
+	height: 35px;
+	width: 75px;
+	background-color: #3383FF;
+	color: white;
+	border-radius: 12%;
+	font-size: 14px;
+}
+
+#message 
+{
+	font-size: 30px;
+	color: black;
+}
+
+#message > span
+{
+	color: red;
+}
+
+#images
+{
+	margin-top: 50px;
+
+}
+
+#images > img
+{
+	float: left;
+	margin-right: 30px;
+	width: 80px;
+}
+
+#clearFloat
+{
+	clear: both;
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<style>
+		#display {
+			font-size: 2em;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1 class="col-12 text-center mt-5">JS Calculator</h1>
+		</div> <!-- .row -->
+		<div class="row">
+			<div id="calculator" class="mt-4 col-12 col-md-6 ml-md-auto mr-md-auto col-lg-4">
+				<div class="row">
+					<input type="text" id="display" class="col-12 text-right form-control" value="0">
+				</div> <!-- .row -->
+				<div class="row">
+					<button class="col-9 btn btn-lg btn-outline-dark">AC</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">/</button>
+				</div> <!-- .row -->
+				<div class="row">
+					<button class="col-3 btn btn-lg btn-outline-dark">7</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">8</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">9</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">x</button>
+				</div> <!-- .row -->
+				<div class="row">
+					<button class="col-3 btn btn-lg btn-outline-dark">4</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">5</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">6</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">-</button>
+				</div> <!-- .row -->
+				<div class="row">
+					<button class="col-3 btn btn-lg btn-outline-dark">1</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">2</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">3</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">+</button>
+				</div> <!-- .row -->
+				<div class="row">
+					<button class="col-6 btn btn-lg btn-outline-dark">0</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">.</button>
+					<button class="col-3 btn btn-lg btn-outline-dark">=</button>
+				</div> <!-- .row -->
+			</div> <!-- #calculator -->
+		</div> <!-- .row -->
+	</div> <!-- .container -->
+	<script>
+		var firstVal = '';
+		var secondVal = '';
+		var operation = '';
+		var returnValue = 0;
+		var counter = 0;
+		var buttons = document.querySelectorAll("button");
+		for(var i=0; i<buttons.length; i++)
+		{
+			buttons[i].onclick = function()
+			{
+				if(this.innerHTML == "AC")
+				{
+					document.querySelector("input").value = 0;
+					firstVal = '';
+					secondVal = '';
+				}
+				else if((this.innerHTML == '+') || (this.innerHTML == '-') || (this.innerHTML == '/') || (this.innerHTML == 'x'))
+				{
+					operation = this.innerHTML;
+					document.querySelector("input").value = 0;
+					counter = 0;
+				} 
+				else if(this.innerHTML == '.')
+				{
+					if(counter == 0)
+					{
+						if(secondVal != '')
+						{
+							secondVal += '.';
+							counter++;
+							document.querySelector("input").value = secondVal;
+						}
+						else if((secondVal == '') && (firstVal != ''))
+						{
+							firstVal += '.';
+							counter++;
+							document.querySelector("input").value = firstVal;
+						}	
+						else
+							document.querySelector("input").value = 0;	
+					}		
+				}
+				else if(this.innerHTML =='=')
+				{
+					if(secondVal != '')
+					{
+						var val1 = parseFloat(firstVal);
+						var val2 = parseFloat(secondVal);
+						if(operation == '+')
+						{
+							returnValue = (val1 + val2);
+							document.querySelector("input").value = returnValue;
+						}
+						else if(operation == '-')
+						{
+							returnValue = (val1 - val2);
+							document.querySelector("input").value = returnValue;
+						}
+						else if(operation == '/')
+						{
+							if(val2 == 0)
+								document.querySelector("input").value = "undefined";
+							else
+							{
+								returnValue = (val1 / val2);
+								document.querySelector("input").value = returnValue;
+							}
+						}
+						else 
+						{
+							returnValue = (val1 * val2);
+							document.querySelector("input").value = returnValue;
+						}
+						firstVal = returnValue;
+						secondVal = '';
+						operation = '';
+						counter = 0;
+					}
+					else if((secondVal == '') && (firstVal != ''))
+					{
+						document.querySelector("input").value = firstVal;
+					}	
+					else
+					{
+						document.querySelector("input").value = 0;
+					}		
+				}
+				else
+				{
+					if((operation == '') && (returnValue == 0))
+					{
+						firstVal += this.innerHTML;
+						document.querySelector("input").value = firstVal;
+					}
+					else if ((operation == '') && (returnValue != 0))
+					{
+						firstVal = '';
+						returnValue = 0;
+						firstVal += this.innerHTML;
+						document.querySelector("input").value = firstVal;
+					}
+					else
+					{
+						secondVal += this.innerHTML;
+						document.querySelector("input").value = secondVal;
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

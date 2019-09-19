@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Special Day Reminder</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="Date_Reminder.css">
+</head>
+<body class="py-4">
+	<div class="container">
+		<div class="row mt-4">
+			<h2 class="col-12">Special Date Reminder</h2>
+			<div class="col-12 mt-4">
+				<form id="prio-todo">
+					<div class="form-row">
+						<!-- Special Day Title -->
+						<div class="col-12 mt-2 col-sm-3 mt-sm-0">
+							<label for="dayTitle" class="sr-only">Special Day Title:</label>
+							<input type="text" class="form-control" id="dayTitle" placeholder="Special Day Title">
+							<small id="titleError"></small>
+						</div> 
+						<!-- Special Day Date -->
+						<div class="col-12 mt-2 col-sm-3 mt-sm-0">
+							<label for="dayDate" class="sr-only">Special Day Date</label>
+							<input type="date" class="form-control date-styling" id="dayDate">
+							<small id="dateError"></small>
+						</div> 
+						<!-- Special Day Image -->
+						<div class="col-12 mt-2 col-sm-3 mt-sm-0">
+							<label for="dayImage" class="sr-only">Special Day Image</label>
+							<input type="text" class="form-control" id="dayImage" placeholder="Image url (optional)">
+						</div> 
+						<div class="col-12 mt-2 col-sm-auto mt-sm-0">
+							<button role="button" type="submit" class="btn btn-primary">Add</button>
+						</div> 
+					</div> 
+				</form>
+			</div> 
+		</div> 
+
+		<div class="row">
+			<div class="col-12 col-sm-8 mt-3">
+				<button id="prio-delete" class="btn btn-outline-danger mb-3">Delete All</button>
+				<!-- Christmas -->
+				<div id="contentBox">
+					<ul class="contentFloat">
+						<li class="list-group-item d-flex justify-content-between">
+							<div class="todo-item">Christmas Day</div>
+						</li>
+					</ul>
+					<ul class="contentFloat">
+						<li class="list-group-item d-flex justify-content-between">
+							<div class="todo-item">12/25/2018</div>
+						</li>
+					</ul>
+					<div class="contentFloat">
+						<img src="Images/christmas.jpg" alt="Christmas Day" class="contentImage">
+					</div>
+					<div class="clearFloat"></div>
+			<!-- Valentines Day -->
+					<ul class="contentFloat">
+						<li class="list-group-item d-flex justify-content-between">
+							<div class="todo-item">Valentines Day</div>
+						</li>
+					</ul>
+					<ul class="contentFloat">
+						<li class="list-group-item d-flex justify-content-between">
+							<div class="todo-item">02/14/2019</div>
+						</li>
+					</ul>
+					<div class="contentFloat">
+						<img src="Images/valentines.jpg" alt="Valentine's Day" class="contentImage">
+					</div>
+					<div class="clearFloat"></div>
+			<!-- NBA Playoffs -->
+					<ul class="contentFloat">
+						<li class="list-group-item d-flex justify-content-between">
+							<div class="todo-item">NBA Playoffs</div>
+						</li>
+					</ul>
+					<ul class="contentFloat">
+						<li class="list-group-item d-flex justify-content-between">
+							<div class="todo-item">04/13/2019</div>
+						</li>
+					</ul>
+					<div class="contentFloat">
+						<img src="Images/nba.jpg" alt="NBA Playoffs" class="contentImage">
+					</div>
+					<div class="clearFloat"></div>
+				</div>
+			</div> 
+		</div> 
+	</div> 
+	<script>
+		function userInput(content)
+		{
+			var parentNode = document.querySelector("#contentBox");
+			var ul = document.createElement("ul");
+			ul.classList.add("contentFloat");
+			parentNode.appendChild(ul);
+			var li = document.createElement("li");
+			li.classList.add("list-group-item","d-flex", "justify-content-between");
+			ul.appendChild(li);
+			var div = document.createElement("div");
+			div.classList.add("todo-item");
+			div.innerHTML = content;
+			li.appendChild(div);
+		}
+		function userImage(content, alt)
+		{
+			var parentNode = document.querySelector("#contentBox")
+			var contentDiv = document.createElement("div");
+			contentDiv.classList.add("contentFloat");
+			parentNode.appendChild(contentDiv);
+			var img = document.createElement("img");
+			img.classList.add("contentImage");
+			img.src = content;
+			img.alt = alt;
+			contentDiv.appendChild(img);
+			var floatDiv = document.createElement("div");
+			floatDiv.classList.add("clearFloat");
+			parentNode.appendChild(floatDiv);
+		}
+		function clearInput()
+		{
+			document.querySelector("#dayTitle").value = "";
+			document.querySelector("#dayDate").value = ""
+			document.querySelector("#dayImage").value = ""
+		}
+		document.querySelector("form").onsubmit = function()
+		{
+			var title = document.querySelector("#dayTitle").value.trim();
+			var temp = document.querySelector("#dayDate").value.trim();
+			var date = temp.substr(5,2) + "/" + temp.substr(8,2) + "/" + temp.substr(0,4);
+			var imageSource = document.querySelector("#dayImage").value.trim();
+			if((title.length != 0) && (date.length == 10))
+			{
+				document.querySelector("#titleError").innerHTML="";
+				document.querySelector("#dateError").innerHTML="";
+				userInput(title);
+				userInput(date);
+				if(imageSource.length != 0)
+				{
+					userImage(imageSource, title);
+				}
+				else
+				{
+					userImage("Images/default.jpg", "default");
+				}
+			}
+			else
+			{
+				if(title.length == 0)
+					document.querySelector("#titleError").innerHTML = "Title cannot be empty.";
+				else
+					document.querySelector("#titleError").innerHTML="";
+				if(date.length == 2)
+					document.querySelector("#dateError").innerHTML = "Date cannot be empty.";
+				else
+					document.querySelector("#dateError").innerHTML="";
+			}
+			clearInput();
+			return false;
+		}
+		document.querySelector("#prio-delete").onclick = function()
+		{
+			document.querySelector("#contentBox").innerHTML = "";
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+.date-styling
+{
+	color: #6c757d;
+	height: 38px;
+}
+
+.todo-remove 
+{
+	cursor: pointer;
+	color: #CCC;
+}
+
+.todo-remove:hover 
+{
+	color: #dc3545;
+}
+
+.todo-remove:active 
+{
+	color: #ba1323;
+}
+
+#contentBox
+{
+	margin-top: 10px;
+	width: 1400px;
+}
+
+.contentFloat
+{
+	float: left;
+	width: 390px;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.contentImage
+{
+	float: left;
+	height: 50px;
+	width: 50px;
+	border: 1px solid rgb(223, 223, 223);
+	border-radius: 0.5rem;
+}
+
+.clearFloat
+{
+	clear: both;
+}
+small
+{
+	padding-left: 5px;
+	color: red;
+}

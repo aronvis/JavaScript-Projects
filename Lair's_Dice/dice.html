@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Liar's Dice</title>
+	<link rel="stylesheet" href="dice.css">
+</head>
+<body>
+	<div id="outercontainer">
+		<section>
+			<h1>Liar's Dice</h1>
+		</section>
+		<section>
+			Your Guess:
+			<input type="text">
+			<button>Submit</button>
+		</section>
+		<section>
+			<div id="message"> 
+				Results:
+				<span></span>
+			</div>
+			<div id=images>
+				<img src="1.png">
+				<img src="1.png">
+				<img src="1.png">
+				<img src="1.png">
+				<img src="1.png">
+			</div>
+			<div id="clearFloat"></div>
+		</section>
+	</div>
+	<script>
+		function printMessage(guessValue, numArray)
+		{
+			var value = document.querySelector('#message > span');
+			document.querySelector('#message > span').innerHTML = "Try again.";
+			value.style.color="red";
+			for(var i=0; i<5; i++)
+			{
+				if (guessValue == numArray[i]+1)
+				{
+					document.querySelector('#message > span').innerHTML = "You guessed it!";
+					value.style.color="green";
+					return;
+				} 
+			}
+		}
+
+		function createNums(emptyArray)
+		{
+			for(var i=0; i<5; i++)
+			{
+				emptyArray[i] = Math.floor(Math.random() * 6);
+			}
+		}
+		
+
+		function updateImages(imageNames, currentImages, numArray)
+		{
+			for(var i=0; i<currentImages.length; i++)
+			{
+				var value = numArray[i];
+				currentImages[i].src = imageNames[value];
+			}
+
+		}
+
+		document.querySelector('button').onclick = function()
+		{
+			var currentImages = document.querySelectorAll('img');
+			var guess;
+			var numbers = [];
+			var imageName = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+
+			if(document.querySelector('input').value != '')
+			{
+				guess = parseInt(document.querySelector('input').value);
+				createNums(numbers);
+				printMessage(guess, numbers);
+				updateImages(imageName, currentImages, numbers);
+			}
+		}
+	</script>
+</body>
+</html>
