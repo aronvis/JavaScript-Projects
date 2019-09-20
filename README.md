@@ -1,2 +1,2 @@
 # JavaScript-Projects
-Projects I have completed in JavaScript
+Projects I have completed using HTML, CSS and JS. 
